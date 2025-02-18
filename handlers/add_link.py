@@ -19,12 +19,13 @@ def is_valid_url(url):
 
 @add_link_router.message(AddLink.waiting_for_link)
 async def add_link_finish(message: types.Message, state: FSMContext):
+    user_id = message.from_user.id
     link = message.text
     if not is_valid_url(link):
         await message.answer("Это не похоже на ссылку. Попробуй еще раз.")
         return
 
-    user_id = message.from_user.id
+    
     add_link_to_db(user_id, link)
     await message.answer(
         f'Ссылка "{link}" добавлена в твой список!',

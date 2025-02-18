@@ -62,23 +62,6 @@ def get_random_link(user_id):
     conn.close()
     return links[0]['link'] if links else None
 
-# Получение всех ссылок пользователя
-def get_user_links(user_id):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute('SELECT link FROM wishlist WHERE user_id = ?', (user_id,))
-    links = [row['link'] for row in cursor.fetchall()]
-    conn.close()
-    return links
-
-# Удаление ссылки из списка
-def delete_link(user_id, link):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute('DELETE FROM wishlist WHERE user_id = ? AND link = ?', (user_id, link))
-    conn.commit()
-    conn.close()
-
 # Получение всех зарегистрированных пользователей
 def get_all_users():
     conn = get_db_connection()
@@ -87,3 +70,19 @@ def get_all_users():
     users = [{'user_id': row['user_id'], 'username': row['username']} for row in cursor.fetchall()]
     conn.close()
     return users
+
+
+def get_user_links(user_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT link FROM wishlist WHERE user_id = ?', (user_id,))
+    links = [row['link'] for row in cursor.fetchall()]
+    conn.close()
+    return links
+
+def delete_link(user_id, link):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM wishlist WHERE user_id = ? AND link = ?', (user_id, link))
+    conn.commit()
+    conn.close()

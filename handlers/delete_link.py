@@ -1,6 +1,5 @@
 from aiogram import Router, types
 from database import delete_link, get_user_links
-from keyboards.main_menu import get_main_menu
 
 delete_link_router = Router()
 
